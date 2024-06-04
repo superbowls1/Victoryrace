@@ -1,0 +1,47 @@
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class StickFigureGame extends JFrame implements KeyListener {
+    private StickFigurePanel stickFigurePanel;
+
+    public StickFigureGame() {
+        setTitle("Stick Figure Game");
+        setSize(500, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        stickFigurePanel = new StickFigurePanel();
+        add(stickFigurePanel);
+
+        addKeyListener(this);
+        setFocusable(true);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_A) {
+            stickFigurePanel.moveLeft();
+        } else if (key == KeyEvent.VK_D) {
+            stickFigurePanel.moveRight();
+        } //logs the key and moves it
+
+        if (stickFigurePanel.hasCrossedFinishLine()) {
+            JOptionPane.showMessageDialog(this, "Congratulations! You've crossed the finish line!", "Victory!", JOptionPane.INFORMATION_MESSAGE);
+            //gives the user the victoy message/
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            StickFigureGame game = new StickFigureGame();
+            game.setVisible(true);
+        });
+    }
+}
