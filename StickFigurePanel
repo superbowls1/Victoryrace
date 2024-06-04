@@ -1,0 +1,50 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class StickFigurePanel extends JPanel {
+    private int xPosition = 200; // Initial x position of the stick figure
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        drawStickFigure(g);
+        drawFinishLine(g);
+    }
+
+    private void drawStickFigure(Graphics g) {
+        // Draw stick figure body
+        g.setColor(Color.BLACK);
+        g.drawLine(xPosition, 150, xPosition, 250);
+
+        // Draw stick figure head
+        g.drawOval(xPosition - 20, 100, 40, 40);
+
+        // Draw stick figure arms
+        g.drawLine(xPosition, 180, xPosition + 30, 220);
+        g.drawLine(xPosition, 180, xPosition - 30, 220);
+
+        // Draw stick figure legs
+        g.drawLine(xPosition, 250, xPosition + 20, 300);
+        g.drawLine(xPosition, 250, xPosition - 20, 300);
+    }
+
+    private void drawFinishLine(Graphics g) {
+        g.setColor(Color.RED);
+        int finishLineX = getWidth() - 50;
+        g.drawLine(finishLineX, 0, finishLineX, getHeight());
+    } //drawling the finish line
+
+    public boolean hasCrossedFinishLine() {
+        return xPosition >= getWidth() - 50;
+    } //using the same width to give message they have finish
+
+    public void moveLeft() {
+        xPosition -= 10;
+        repaint(); //left
+    }
+
+    public void moveRight() {
+        xPosition += 10;
+        repaint(); //right
+    }
+}
